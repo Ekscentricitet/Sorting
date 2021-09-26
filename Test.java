@@ -1,5 +1,5 @@
 import java.util.concurrent.ThreadLocalRandom;
-import java.io.*;
+import Algorithms.Mergesort;
 
 public class Test 
 {
@@ -28,7 +28,8 @@ public class Test
             arrayToSort[i] = ThreadLocalRandom.current().nextInt(0, numbersToSort);
             System.out.print(arrayToSort[i] + " ");
         }
-        Mergesort.sort(arrayToSort);
+        Mergesort mergesort = new Mergesort();
+        mergesort.sort(arrayToSort);
         System.out.println();
         System.out.println("*** SORTED: ***");
         for (int i = 0; i <= numbersToSort - 1; i++)
