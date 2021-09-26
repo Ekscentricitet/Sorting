@@ -8,10 +8,42 @@ public class Test
 {
     public static void main(String[] args) 
     {
-        int numbersToSort = getNumbersToSortFromUser();
         SortingAlgorithm chosenAlgorithm = getSortingAlgorithmFromUser();
-        var arrayToSort = prepareArray(numbersToSort);
-        sortAndPrintResult(chosenAlgorithm, arrayToSort);
+
+        if (checkTime())
+        {      
+            var maximumElements = 100000;
+            for (int i = 100; i <= maximumElements; i*=10)
+            {
+                var array = prepareArrayNoOutput(i);
+                sortAndPrintTime(chosenAlgorithm, array);
+            }
+        }
+        else
+        {
+            int numbersToSort = getNumbersToSortFromUser();
+            var arrayToSort = prepareArray(numbersToSort);
+            sortAndPrintResult(chosenAlgorithm, arrayToSort);
+        }    
+    }
+
+    private static Boolean checkTime()
+    {
+        System.out.println("What would you want to do? Enter \"1\" for measuring execution time and \"2\" for sorting a random array.");
+        while(true)
+        {
+            String userInput = System.console().readLine();
+            switch(userInput)
+            {
+                case "1":
+                    return true;
+                case "2":
+                    return false;
+                default:
+                    System.out.println("Please enter one of the provided options.");
+                    break;
+            }
+        }
     }
 
     private static int getNumbersToSortFromUser()
@@ -78,6 +110,16 @@ public class Test
         return arrayToSort;
     }
 
+    private static Integer[] prepareArrayNoOutput(int numbersToSort)
+    {
+        Integer[] arrayToSort = new Integer[numbersToSort];
+        for (int i = 0; i <= numbersToSort - 1; i++)
+        {
+            arrayToSort[i] = ThreadLocalRandom.current().nextInt(0, numbersToSort);
+        }
+        return arrayToSort;
+    }
+
     private static void sortAndPrintResult(SortingAlgorithm sortingAlgorithm, Integer[] arrayToSort)
     {
         System.out.println("*** Sorting... ***");
@@ -89,5 +131,13 @@ public class Test
             System.out.print(arrayToSort[i] + " ");
         }
         System.out.println();
+    }
+
+    private static void sortAndPrintTime(SortingAlgorithm sortingAlgorithm, Integer[] arrayToSort)
+    {
+        long startTime = System.nanoTime();
+        sortingAlgorithm.sort(arrayToSort);
+        long stopTime = System.nanoTime();
+        System.out.println("Number of elements: " + arrayToSort.length + " --> Time: " + (stopTime - startTime));
     }
 }

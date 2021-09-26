@@ -24,3 +24,5 @@ Download and run the "Test.java" file. It will prompt you for a user input. The 
   * Added InsertionSort.
   * Updated program to prompt the user about the algorithm be to used.
   * Now arrays longer than 1000 characters will not be printed in insurted form.
+
+* 0.0.3 - added time measurement option.
